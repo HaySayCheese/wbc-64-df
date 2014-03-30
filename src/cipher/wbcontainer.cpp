@@ -71,14 +71,16 @@ WBContainer::WBContainer(byte *key){
 
 
 
+    /* levels initialisation */
     for (uint8 i=0; i<WBContainer::kLevelsCount; ++i){
         byte *levelKey = key + i*WBLevel::kItemsCount;
 
         size_t levelKeySum = 0;
         for (uint8 k=0; k<16; k++)
-            levelKey += key[i];
+            levelKeySum += levelKey[i];
 
-        mLevels[i] = new WBLevel(levelKey, maps[levelKeySum % 4]);
+        size_t m = levelKeySum % 4;
+        mLevels[i] = new WBLevel(levelKey, maps[m]);
     }
 }
 
