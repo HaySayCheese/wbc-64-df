@@ -17,6 +17,7 @@ public:
 
 public:
     WBLevel(const byte *key, const WBLevelMap *map);
+
     void setData(const byte *bytes);
 
 private:

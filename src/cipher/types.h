@@ -4,7 +4,6 @@
 #include <boost/cstdint.hpp>
 
 
-
 typedef u_int8_t  byte;
 typedef u_int16_t word;
 typedef u_int32_t dword;

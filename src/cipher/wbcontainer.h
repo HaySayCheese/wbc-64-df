@@ -21,6 +21,8 @@ public:
 
 public:
     WBContainer(byte *key);
+    ~WBContainer();
+
     void processBlock(byte *dataBuffer, byte *resultBuffer);
 
 private:
@@ -42,6 +44,7 @@ private:
 
 private:
     WBLevel *mLevels[4];
+    WBLevelMap *mMaps[4];
 };
 
 #endif // WBCONTAINER_H

@@ -7,3 +7,7 @@ WBLevelMap::WBLevelMap(ItemCoords *map, size_t count){
     mCoords = map;
     mN = count;
 }
+
+WBLevelMap::~WBLevelMap(){
+    free((void*) mCoords);
+}

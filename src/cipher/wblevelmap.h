@@ -22,6 +22,7 @@ public:
 
 public:
     WBLevelMap(ItemCoords *map, size_t count);
+    ~WBLevelMap();
 
 private:
     size_t mN;

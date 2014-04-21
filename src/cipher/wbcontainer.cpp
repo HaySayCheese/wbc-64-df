@@ -62,13 +62,10 @@ WBContainer::WBContainer(byte *key){
     memcpy(heapCoords3, &coords3, sizeof(coords3));
 
 
-    const WBLevelMap *maps[4] = {
-        new WBLevelMap(heapCoords0, 16),
-        new WBLevelMap(heapCoords0, 16),
-        new WBLevelMap(heapCoords0, 16),
-        new WBLevelMap(heapCoords0, 16),
-    };
-
+    mMaps[0] = new WBLevelMap(heapCoords0, 16);
+    mMaps[1] = new WBLevelMap(heapCoords1, 16);
+    mMaps[2] = new WBLevelMap(heapCoords2, 16);
+    mMaps[3] = new WBLevelMap(heapCoords3, 16);
 
 
     /* levels initialisation */
@@ -80,7 +77,16 @@ WBContainer::WBContainer(byte *key){
             levelKeySum += levelKey[i];
 
         size_t m = levelKeySum % 4;
-        mLevels[i] = new WBLevel(levelKey, maps[m]);
+        mLevels[i] = new WBLevel(levelKey, mMaps[m]);
+    }
+}
+
+WBContainer::~WBContainer(){
+    for (size_t i=0; i<kSideSize; ++i){
+        delete mLevels[i];
+    }
+    for (size_t i=0; i<kSideSize; ++i){
+        delete mMaps[i];
     }
 }
 
@@ -178,8 +184,6 @@ void WBContainer::processBlueItem(const uint8 levelIndex, const uint8 x, const u
     // third step
     byte *pk3 = &level->mKey[y].b[nextX];
     byte *pd2 = &nextLevel->mData[y].b[nextX];
-
-    *pk2 = ~(*pk3 ^ *pk2); // third iteration uses inverted XOR
     *pNextLevelKey = rolDWord(*pNextLevelKey, 7);
     *pd2 ^= *pk2;
 
