@@ -184,6 +184,8 @@ void WBContainer::processBlueItem(const uint8 levelIndex, const uint8 x, const u
     // third step
     byte *pk3 = &level->mKey[y].b[nextX];
     byte *pd2 = &nextLevel->mData[y].b[nextX];
+    
+    *pk2 = ~(*pk3 ^ *pk2); // third iteration uses inverted XOR
     *pNextLevelKey = rolDWord(*pNextLevelKey, 7);
     *pd2 ^= *pk2;
 
